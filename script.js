@@ -137,7 +137,7 @@ function getHistory(option) {
         storageObjectList.push(storageObject);
       }
     }
-  } else if (option === "last5") {
+  } else if (option === "previous") {
     // get last 5 submissions
     let num = 9; // number of history to display + 1
 
@@ -194,31 +194,30 @@ function displayTodayHistory() {
           <td colspan="4">more...</td>
     `;
 
-      // console.log(todayHistoryContainer.children.length);
-      // console.log(todayHistoryContainer);
-
       todayHistoryContainer.appendChild(newTr);
     }
   });
 }
 
 // display last 5 history
-function displayLast5History() {
-  const last5History = getHistory("last5");
+function displayPreviousHistory() {
+  const previousHistory = getHistory("previous");
 
-  const last5HistoryContainer = document.querySelector(".last5-history tbody");
+  const previousHistoryContainer = document.querySelector(
+    ".previous-history tbody"
+  );
 
-  if (last5History.length === 0) {
+  if (previousHistory.length === 0) {
     const newTr = document.createElement("tr");
     newTr.innerHTML = ` 
           <td colspan="4">No History</td>
       `;
 
-    last5HistoryContainer.appendChild(newTr);
+    previousHistoryContainer.appendChild(newTr);
   }
 
   // display history in table format
-  last5History.forEach((history) => {
+  previousHistory.forEach((history) => {
     let moodList = history.moodList.join(", ");
     const newTr = document.createElement("tr");
     newTr.innerHTML = ` 
@@ -228,7 +227,7 @@ function displayLast5History() {
           <td>${history.aboutMood}</td>
           <td>${history.thoughts || "-"}</td>
     `;
-    last5HistoryContainer.appendChild(newTr);
+    previousHistoryContainer.appendChild(newTr);
   });
 }
 
@@ -291,5 +290,5 @@ clearHistoryBtn.addEventListener("click", () => {
 // display on page load
 document.addEventListener("DOMContentLoaded", (event) => {
   displayTodayHistory();
-  displayLast5History();
+  displayPreviousHistory();
 });
