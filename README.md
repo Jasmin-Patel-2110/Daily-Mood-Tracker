@@ -2,6 +2,8 @@
 
 A simple and interactive web-based **Daily Mood Tracker** that allows users to log their moods, add reasons, and store history. The application provides a smooth and responsive user experience with **animations, local storage support**, and a **clean UI**.
 
+Live at: https://daily-mood-tracker-masterji.netlify.app/
+
 ---
 
 ## 🛠️ Technologies
@@ -48,18 +50,18 @@ A simple and interactive web-based **Daily Mood Tracker** that allows users to l
 
 1. **Clone the repository**:
 
-   ```sh
-      git clone https://github.com/your-username/daily-mood-tracker.git
+   ```bash
+      git clone https://github.com/Jasmin-Patel-2110/Daily-Mood-Tacker
    ```
 
 2. **Navigate into the project**:
 
    ```sh
-      cd daily-mood-tracker
+      cd Daily-Mood-Tacker
    ```
 
 3. **Run the application**:  
-   Simply open `index.html` in a browser. No additional setup required!
+   Simply open `index.html` in a browser. No additional setup is required!
 
 ---
 
