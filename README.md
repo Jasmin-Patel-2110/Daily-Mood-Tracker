@@ -2,6 +2,8 @@
 
 A simple and interactive web-based **Daily Mood Tracker** that allows users to log their moods, add reasons, and store history. The application provides a smooth and responsive user experience with **animations, local storage support**, and a **clean UI**.
 
+Live at: https://daily-mood-tracker-masterji.netlify.app/
+
 ---
 
 ## 🛠️ Technologies
