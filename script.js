@@ -3,19 +3,28 @@ const askAboutMoodContainer = document.querySelector(
   ".ask-about-mood-container"
 );
 const submitBtn = document.querySelector(".submitBtn");
-const selectedMoodList = [];
-
 let count = Number(localStorage.getItem("count")) || 0;
 
+let date = new Date();
+
+const selectedMoodList = [];
+
 // add functionality of moods
-moods.forEach((moods) => {
-  moods.addEventListener("click", function (e) {
+moods.forEach((mood) => {
+  mood.addEventListener("click", function (e) {
+    e.preventDefault();
+
     // toggling selected mood class on click of mood.
     this.classList.toggle("selected-mood");
-    let innerText = this.innerText.split(" ")[0]; // using split to remove emoji
+    let innerText = this.innerText.trim(); // using split to remove emoji
 
     // pushing selected moods to array
     if (this.classList.contains("selected-mood")) {
+      if (selectedMoodList.length > 2) {
+        this.classList.remove("selected-mood");
+        alert("Select only 3 moods...");
+        return;
+      }
       selectedMoodList.push(innerText);
       addAskAboutMood(innerText);
     } else {
@@ -29,7 +38,7 @@ moods.forEach((moods) => {
 function addAskAboutMood(innerText) {
   const newDiv = document.createElement("div");
   newDiv.classList.add("about-mood");
-  newDiv.classList.add(innerText);
+  newDiv.classList.add(innerText.split(" ")[0]); // using split to remove emoji
   newDiv.innerHTML = `
     <label>Reason behind <b>${innerText}</b> mood:</label>
     <input type="text"
@@ -38,12 +47,16 @@ function addAskAboutMood(innerText) {
         placeholder="Write about mood" autocomplete="off" required>
   `;
 
+  setTimeout(() => {
+    newDiv.classList.add("show");
+  }, 0);
+
   askAboutMoodContainer.appendChild(newDiv);
 }
 
 // remove functionality of ask about mood
 function removeAskAboutMood(innerText) {
-  document.querySelector(`.${innerText}`).remove();
+  document.querySelector(`.${innerText.split(" ")[0]}`).remove(); // using split to remove emoji
 }
 
 // add functionality of submit button
@@ -80,8 +93,6 @@ submitBtn.addEventListener("click", () => {
   document.querySelector(".thoughts").value = "";
 });
 
-let date = new Date();
-
 // saving to local storage
 function saveToLocalStorage(aboutMood, thoughts) {
   let currentTime = date.toLocaleTimeString();
@@ -102,26 +113,46 @@ function saveToLocalStorage(aboutMood, thoughts) {
 }
 
 // get today's history
-function getTodayHistory() {
+function getHistory(option) {
   let tempCount = count - 1;
-  let num = 7; // number of history to display
-
   const storageObjectList = [];
 
-  // get last six submissions if date matches today
-  for (
-    tempCount = count - 1;
-    tempCount > count - num && tempCount >= 0;
-    tempCount--
-  ) {
-    let storageObject = JSON.parse(localStorage.getItem(tempCount));
+  if (option === "today") {
+    let num = 7; // number of history to display + 1
 
-    if (!storageObject) {
-      num++;
-      continue;
+    // get last six submissions if date matches today
+    for (
+      tempCount = count - 1;
+      tempCount > count - num && tempCount >= 0;
+      tempCount--
+    ) {
+      let storageObject = JSON.parse(localStorage.getItem(tempCount));
+
+      if (!storageObject) {
+        num++;
+        continue;
+      }
+      // if date matches today then push
+      if (storageObject.date === date.toLocaleDateString()) {
+        storageObjectList.push(storageObject);
+      }
     }
-    // if date matches today then push
-    if (storageObject.date === date.toLocaleDateString()) {
+  } else if (option === "last5") {
+    // get last 5 submissions
+    let num = 9; // number of history to display + 1
+
+    for (
+      tempCount = count - 1;
+      tempCount > count - num && tempCount >= 0;
+      tempCount--
+    ) {
+      let storageObject = JSON.parse(localStorage.getItem(tempCount));
+
+      if (!storageObject) {
+        num++;
+        continue;
+      }
+
       storageObjectList.push(storageObject);
     }
   }
@@ -131,8 +162,17 @@ function getTodayHistory() {
 
 // display today's history
 function displayTodayHistory() {
-  const todayHistory = getTodayHistory();
+  const todayHistory = getHistory("today");
   const todayHistoryContainer = document.querySelector(".today-history tbody");
+
+  if (todayHistory.length === 0) {
+    const newTr = document.createElement("tr");
+    newTr.innerHTML = ` 
+          <td colspan="4">No History</td>
+      `;
+
+    todayHistoryContainer.appendChild(newTr);
+  }
 
   // display history in table format
   todayHistory.forEach((history) => {
@@ -153,6 +193,10 @@ function displayTodayHistory() {
       newTr.innerHTML = ` 
           <td colspan="4">more...</td>
     `;
+
+      // console.log(todayHistoryContainer.children.length);
+      // console.log(todayHistoryContainer);
+
       todayHistoryContainer.appendChild(newTr);
     }
   });
@@ -160,8 +204,18 @@ function displayTodayHistory() {
 
 // display last 5 history
 function displayLast5History() {
-  const last5History = getTodayHistory();
+  const last5History = getHistory("last5");
+
   const last5HistoryContainer = document.querySelector(".last5-history tbody");
+
+  if (last5History.length === 0) {
+    const newTr = document.createElement("tr");
+    newTr.innerHTML = ` 
+          <td colspan="4">No History</td>
+      `;
+
+    last5HistoryContainer.appendChild(newTr);
+  }
 
   // display history in table format
   last5History.forEach((history) => {
@@ -177,6 +231,62 @@ function displayLast5History() {
     last5HistoryContainer.appendChild(newTr);
   });
 }
+
+// Download Button
+const downloadBtn = document.querySelector(".downloadBtn");
+
+// Excel Download Function
+downloadBtn.addEventListener("click", () => {
+  const allData = getAllDataFromLocalStorage();
+
+  if (allData.length === 0) {
+    alert("No history available to download.");
+    return;
+  }
+
+  // Create Worksheet and Workbook
+  const ws = XLSX.utils.json_to_sheet(allData);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Mood History");
+
+  // Download Excel File
+  XLSX.writeFile(wb, `Mood_History_${date.toLocaleDateString()}.xlsx`);
+});
+
+// Fetch all data from localStorage
+function getAllDataFromLocalStorage() {
+  let allData = [];
+  let tempCount = count;
+
+  for (let i = 0; i < tempCount; i++) {
+    let storageObject = JSON.parse(localStorage.getItem(i));
+
+    if (storageObject) {
+      allData.push({
+        Date: storageObject.date,
+        Time: storageObject.time,
+        Mood: storageObject.moodList.join(", "),
+        Reason: storageObject.aboutMood.join(", "),
+        Thoughts: storageObject.thoughts || "-",
+      });
+    }
+  }
+
+  return allData;
+}
+
+// Clear History Button
+const clearHistoryBtn = document.querySelector(".clear-history-btn");
+
+clearHistoryBtn.addEventListener("click", () => {
+  const confirmation = confirm("Are you sure you want to clear history?");
+
+  if (!confirmation) {
+    return;
+  }
+  localStorage.clear();
+  location.reload();
+});
 
 // display on page load
 document.addEventListener("DOMContentLoaded", (event) => {
