@@ -50,18 +50,18 @@ Live at: https://daily-mood-tracker-masterji.netlify.app/
 
 1. **Clone the repository**:
 
-   ```sh
-      git clone https://github.com/your-username/daily-mood-tracker.git
+   ```bash
+      git clone https://github.com/Jasmin-Patel-2110/Daily-Mood-Tacker
    ```
 
 2. **Navigate into the project**:
 
    ```sh
-      cd daily-mood-tracker
+      cd Daily-Mood-Tacker
    ```
 
 3. **Run the application**:  
-   Simply open `index.html` in a browser. No additional setup required!
+   Simply open `index.html` in a browser. No additional setup is required!
 
 ---
 
