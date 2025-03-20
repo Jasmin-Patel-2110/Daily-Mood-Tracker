@@ -1,0 +1,173 @@
+* {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f4f4f9;
+}
+
+.hidden {
+  display: none;
+}
+
+.no-select {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.container {
+  height: 100%;
+}
+
+.mood-container,
+.ask-about-mood-container,
+.thoughts-container,
+.history-container {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mood {
+  display: inline-block;
+  background-color: #ebebeb;
+  padding: 10px 20px;
+  border-radius: 12px;
+  margin: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.positive {
+  background-color: #bdffcb;
+}
+
+.positive:hover {
+  background-color: #a1feb3;
+}
+
+.negative {
+  background-color: #ffc6c6;
+}
+
+.negative:hover {
+  background-color: #feb6b6;
+}
+
+.select-mood-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.selected-mood {
+  background-color: #ddc7ff;
+}
+
+.selected-mood:hover {
+  background-color: #d6bbff;
+}
+
+.ask-about-mood-container:first-child {
+  text-align: center;
+}
+
+.about-mood {
+  margin-bottom: 10px;
+}
+
+label {
+  font-size: medium;
+  font-weight: 500;
+}
+
+.about-mood > input {
+  width: 100%;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+textarea {
+  margin-top: 10px;
+  padding: 10px;
+  resize: none;
+}
+
+.submitBtn-div {
+  text-align: center;
+}
+.submitBtn {
+  padding: 10px 40px;
+  border-radius: 5px;
+  border: none;
+  background-color: #d9d0ff;
+  font-size: medium;
+  font-weight: 500;
+}
+
+.submitBtn:hover {
+  background-color: #d2c7ff;
+
+  cursor: pointer;
+}
+
+.mood-history {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1100px;
+  margin-top: 25px;
+  margin-bottom: 50px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  color: #2d3436;
+}
+
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+  color: #2d3436;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+.history-container > h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}

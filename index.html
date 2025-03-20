@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+    <title>Daily Mood Tracker</title>
+
+    <link rel="stylesheet"
+        href="style.css">
+</head>
+
+<body>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Mood Container -->
+        <div class="mood-container no-select">
+            <h2>Select your mood:</h2>
+            <div class="select-mood-container">
+                <span class="positive mood">Happy 😊</span>
+                <span class="positive mood">Calm 😌</span>
+                <span class="positive mood">Energetic 🤩</span>
+                <span class="positive mood">Excited 🤩</span>
+                <span class="positive mood">serious 😰</span>
+                <span class="positive mood">Relaxed 😌</span>
+                <span class="negative mood">Anxious 😰</span>
+                <span class="negative mood">Sad 😢</span>
+                <span class="negative mood">Angry 😡</span>
+                <span class="negative mood">Annoyed 😠</span>
+                <span class="negative mood">Frustrated 😩</span>
+                <span class="negative mood">Depressed 😢</span>
+                <span class="negative mood">Nervous 🙄</span>
+                <span class="negative mood">Tensed 🫨</span>
+            </div>
+        </div>
+
+        <!-- Ask About Mood -->
+        <div class="ask-about-mood-container">
+            <div class="hidden">Select mood</div>
+        </div>
+
+        <!-- Thoughts Container -->
+        <div class="thoughts-container">
+            <h3>Your current thoughts (optional):</h3>
+            <textarea name="thoughts"
+                class="thoughts"
+                cols="30"
+                rows="5"
+                placeholder="Talk to your future self"
+                maxlength="1000"></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="submitBtn-div">
+            <button type="submit"
+                class="submitBtn">submit</button>
+        </div>
+
+        <!-- History Container -->
+        <div class="history-container">
+
+            <h2>History</h2>
+            <h4>Todays mood...</h4>
+            <div class="today-history">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Time</th>
+                            <th scope="col">Mood</th>
+                            <th scope="col">Reason</th>
+                            <th scope="col">Thoughts</th>
+                        </tr>
+                    </thead>
+
+                    <tbody> </tbody>
+                </table>
+            </div>
+
+            <h4>Previous moods...</h4>
+            <div class="last5-history">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Mood</th>
+                            <th scope="col">Reason</th>
+                            <th scope="col">Thoughts</th>
+                        </tr>
+                    </thead>
+
+                    <tbody> </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
